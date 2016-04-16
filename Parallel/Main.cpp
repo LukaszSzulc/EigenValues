@@ -208,27 +208,25 @@ double FindEigSingleThread(int matrixSize)
 
 
 
-double FindEigMultithread(int matrixSize)
+double FindEigMultithread(int threadNum,int matrixSize)
 {
 	vector<double> vec = CreateVector(matrixSize);
 	vector<double> b = NormalizeVector(vec);
 	vector<double> a;
+	omp_set_num_threads(threadNum);
+	for (int i = 0; i <= numberOfIterations; i++)
 	{
-
-			for (int i = 0; i <= numberOfIterations; i++)
-			{
-				if (i % 2 == 0)
-				{
-					a = MultiplyMatrixByVectorParallel(b);
-					NormalizeVector(a);
-				}
-				else
-				{
-					b = MultiplyMatrixByVectorParallel(a);
-					NormalizeVector(b);
-				}
-			}	
-	}
+		if (i % 2 == 0)
+		{
+			a = MultiplyMatrixByVectorParallel(b);
+			NormalizeVector(a);
+		}
+		else
+		{
+			b = MultiplyMatrixByVectorParallel(a);
+			NormalizeVector(b);
+		}
+	}	
 
 	vector<double> result;
 	double eigenValue = 0.0;
@@ -247,7 +245,7 @@ int main()
 		for (int j = 2; j <= 4; j++)
 		{
 			double start = omp_get_wtime();
-			double eigen = FindEigMultithread(i);
+			double eigen = FindEigMultithread(j,i);
 			double end = omp_get_wtime();
 			cout << i << "\t" << j << "\t" << eigen << "\t" << end - start << endl;
 			myfile << i << "\t" << j << "\t" << eigen << "\t"<< end - start << endl;
