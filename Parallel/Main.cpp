@@ -246,25 +246,31 @@ int main()
 	myfile.open("parallel.txt");
 	for (int i = 1000; i <= 10000; i += 1000)
 	{
+		cout << "start for " << i << " x " << i << "matrix" << endl;
 		for (int j = 2; j <= 4; j++)
 		{
+			cout << "finish for " << j << " threads" << endl;
 			double start = omp_get_wtime();
 			double eigen = FindEigMultithread(j, i);
 			myfile << i << "\t" << j << "\t" << eigen << omp_get_wtime() - start << endl;
-
 		}
+
+		cout << "finish for " << i << " x " << i << "matrix" << endl;
+
 	}
 	myfile.close();
+
+	myfile.open("single.txt");
+
 	for (int i = 1000; i <= 10000; i += 1000)
 	{
+		cout << "start for signle thread matrix" << i << " x " << i << endl;
 		double start = omp_get_wtime();
-		cout << "Finding max eigen value for " << i << " x " << i << " matrix" << endl;
 		double eigen = FindEigSingleThread(i);
-		cout << "Eig: " << eigen << endl;
-		cout << "Execution time: " << omp_get_wtime() - start;
+		myfile << i << "\t" << 1 << "\t" << eigen << omp_get_wtime() - start << endl;
 	}
 
-
+	myfile.close();
 	system("pause");
 	return EXIT_SUCCESS;
 }
