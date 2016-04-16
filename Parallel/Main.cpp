@@ -3,7 +3,7 @@
 #include <vector>
 #include <fstream>
 #include <cstdlib>
-
+#include <math.h>
 using namespace std;
 const int numberOfIterations = 800;
 
