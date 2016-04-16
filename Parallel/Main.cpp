@@ -123,7 +123,6 @@ vector<double> MultiplyMatrixByVectorParallel(const vector<double> &v)
 
 			result[i] = sum;
 		}
-	
 	return result;
 }
 
@@ -209,9 +208,8 @@ double FindEigSingleThread(int matrixSize)
 
 
 
-double FindEigMultithread(int threadNumbers, int matrixSize)
+double FindEigMultithread(int matrixSize)
 {
-	omp_set_num_threads(threadNumbers);
 	vector<double> vec = CreateVector(matrixSize);
 	vector<double> b = NormalizeVector(vec);
 	vector<double> a;
@@ -241,7 +239,7 @@ double FindEigMultithread(int threadNumbers, int matrixSize)
 }
 
 int main()
-{
+{	
 	ofstream myfile;
 	myfile.open("parallel.txt");
 	for (int i = 1000; i <= 10000; i += 1000)
@@ -249,9 +247,9 @@ int main()
 		for (int j = 2; j <= 4; j++)
 		{
 			double start = omp_get_wtime();
-			double eigen = FindEigMultithread(j, i);
-			cout << i << "\t" << j << "\t" << eigen << omp_get_wtime() - start << endl;
-			myfile << i << "\t" << j << "\t" << eigen << omp_get_wtime() - start << endl;
+			double eigen = FindEigMultithread(i);
+			cout << i << "\t" << j << "\t" << eigen << "\t" << omp_get_wtime() - start << endl;
+			myfile << i << "\t" << j << "\t" << eigen << "\t"<< omp_get_wtime() - start << endl;
 		}
 	}
 	myfile.close();
@@ -262,10 +260,11 @@ int main()
 	{
 		double start = omp_get_wtime();
 		double eigen = FindEigSingleThread(i);
-		cout << i << "\t" << 1 << "\t" << eigen << omp_get_wtime() - start << endl;
-		myfile << i << "\t" << 1 << "\t" << eigen << omp_get_wtime() - start << endl;
+		cout << i << "\t" << 1 << "\t" << eigen << "\t" << omp_get_wtime() - start << endl;
+		myfile << i << "\t" << 1 << "\t" << eigen << "\t" << omp_get_wtime() - start << endl;
 	}
 
 	myfile.close();
+	system("pause");
 	return EXIT_SUCCESS;
 }
