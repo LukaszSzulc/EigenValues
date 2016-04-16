@@ -4,6 +4,7 @@
 #include <fstream>
 #include <cstdlib>
 #include <math.h>
+#include <stdlib.h>
 using namespace std;
 const int numberOfIterations = 800;
 
@@ -236,13 +237,14 @@ double FindEigMultithread(int threadNum,int matrixSize)
 	return eigenValue;
 }
 
-int main()
+int main(int argc, char* args[])
 {	
+	int threds = atoi(args[1]);
 	ofstream myfile;
 	myfile.open("parallel.txt");
 	for (int i = 1000; i <= 10000; i += 1000)
 	{
-		for (int j = 2; j <= 4; j++)
+		for (int j = 1; j <= threds; j++)
 		{
 			double start = omp_get_wtime();
 			double eigen = FindEigMultithread(j,i);
