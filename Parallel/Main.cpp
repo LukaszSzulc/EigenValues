@@ -248,8 +248,9 @@ int main()
 		{
 			double start = omp_get_wtime();
 			double eigen = FindEigMultithread(i);
-			cout << i << "\t" << j << "\t" << eigen << "\t" << omp_get_wtime() - start << endl;
-			myfile << i << "\t" << j << "\t" << eigen << "\t"<< omp_get_wtime() - start << endl;
+			double end = omp_get_wtime();
+			cout << i << "\t" << j << "\t" << eigen << "\t" << end - start << endl;
+			myfile << i << "\t" << j << "\t" << eigen << "\t"<< end - start << endl;
 		}
 	}
 	myfile.close();
@@ -260,8 +261,9 @@ int main()
 	{
 		double start = omp_get_wtime();
 		double eigen = FindEigSingleThread(i);
-		cout << i << "\t" << 1 << "\t" << eigen << "\t" << omp_get_wtime() - start << endl;
-		myfile << i << "\t" << 1 << "\t" << eigen << "\t" << omp_get_wtime() - start << endl;
+		double end = omp_get_wtime();
+		cout << i << "\t" << 1 << "\t" << eigen << "\t" << end - start << endl;
+		myfile << i << "\t" << 1 << "\t" << eigen << "\t" << end - start << endl;
 	}
 
 	myfile.close();
