@@ -204,7 +204,6 @@ double FindEigSingleThread(int matrixSize)
 
 	result = MultiplyMatrixByVector(a);
 	eigenValue = Dot(result, a);
-	cout << eigenValue << endl;
 	return eigenValue;
 }
 
@@ -238,7 +237,6 @@ double FindEigMultithread(int threadNumbers, int matrixSize)
 
 	result = MultiplyMatrixByVector(a);
 	eigenValue = Dot(result, a);
-	cout << eigenValue;
 	return eigenValue;
 }
 
