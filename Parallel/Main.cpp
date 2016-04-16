@@ -2,12 +2,14 @@
 #include <omp.h>
 #include <vector>
 #include <fstream>
+#include <cstdlib>
+
 using namespace std;
 const int numberOfIterations = 800;
 
-vector<vector<double>> CreateMatrix(const int n)
+vector<vector<double > > CreateMatrix(const int n)
 {
-	vector<vector<double>> result(n) ;
+	vector<vector<double > > result(n) ;
 	for (int i = 0; i < result.size(); i++)
 	{
 		result[i] = vector<double>(n);
@@ -26,7 +28,7 @@ vector<vector<double>> CreateMatrix(const int n)
 	return result;
 }
 
-void PrintMatrix(const vector<vector<double>> &matrix)
+void PrintMatrix(const vector<vector<double > > &matrix)
 {
 	for (int i = 0; i < matrix.size(); i++)
 	{
@@ -80,7 +82,7 @@ vector<double>& NormalizeVector(vector<double> &vector)
 }
 
 
-vector<double> MultiplyMatrixByVector(const vector<vector<double>> &matrix, const vector<double> &v)
+vector<double> MultiplyMatrixByVector(const vector<vector<double > > &matrix, const vector<double> &v)
 {
 	vector<double> result(v.size());
 	for (int i = 0; i < matrix.size(); i++)
@@ -271,6 +273,5 @@ int main()
 	}
 
 	myfile.close();
-	system("pause");
 	return EXIT_SUCCESS;
 }
